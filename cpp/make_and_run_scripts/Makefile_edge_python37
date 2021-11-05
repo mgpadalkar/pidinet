@@ -1,0 +1,16 @@
+# ENV_NAME = tf-1.14
+ENV_NAME = IRMID
+PYTHON_HOME = ${HOME}/localInstalls/anaconda3/envs/${ENV_NAME}
+PYTHON_INCLUDE = -I${PYTHON_HOME}/include/python3.7m 
+NUMPY_INCLUDE = -I${PYTHON_HOME}/lib/python3.7/site-packages/numpy/core/include
+PYTHON_LIBS = -L${PYTHON_HOME}/lib $(shell ${PYTHON_HOME}/bin/python3.7-config --ldflags)
+
+all:
+	. ~/localInstalls/set_opencv-3.4.4.sh && \
+        . ~/localInstalls/set_python3.7.sh && \
+        conda activate ${ENV_NAME} && \
+        g++ -std=c++11 test/test_edge_detector.cpp src/edge_detector.cpp -DPYTHON3 -Iinclude ${PYTHON_INCLUDE} ${NUMPY_INCLUDE} `pkg-config --cflags --libs opencv` ${PYTHON_LIBS} -o bin/test_edge_detector
+
+clean:
+	rm bin/test_edge_detector
+
