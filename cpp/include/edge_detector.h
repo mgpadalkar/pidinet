@@ -67,8 +67,12 @@ class EdgeDetector
   public:
     EdgeDetector();
     ~EdgeDetector();
+    EdgeDetector(std::string model_arg, std::string config_arg, std::string checkpoint_arg,
+      bool sa_arg, bool dil_arg, float resize_factor=1.0,
+      std::string module_name="edge_detector",
+      std::string function_name="detect_edges",
+      std::string load_name="load_model");
 
-    // int detect_edges(std::string light_name, std::string model_root, cv::Mat image, cv::Mat tile_mask, cv::Mat &edge_mask);
     int detect_edges(cv::Mat image, cv::Mat &edge_mask);
 };
 

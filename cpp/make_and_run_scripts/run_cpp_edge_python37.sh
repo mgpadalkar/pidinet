@@ -8,4 +8,4 @@ export LD_LIBRARY_PATH=~/localInstalls/anaconda3/envs/tf-1.14/lib:$LD_LIBRARY_PA
 
 
 # command
-./bin/test_edge_detector $1 $2 $3
+./bin/test_edge_detector $1 $2 $3 $4 $5 $6 $7

@@ -42,6 +42,38 @@ EdgeDetector::EdgeDetector()
 }
 
 
+// parameterized constructor
+EdgeDetector::EdgeDetector
+(
+  std::string model_arg, std::string config_arg, std::string checkpoint_arg,
+  bool sa_arg, bool dil_arg, float resize_factor,
+  std::string module_name, std::string function_name, std::string load_name
+)
+{
+  m_module_name			= module_name;
+  m_function_name		= function_name;
+  m_load_name   		= load_name;
+
+  m_model_arg                   = model_arg;
+  m_config_arg                  = config_arg;
+  m_checkpoint_arg              = checkpoint_arg;
+  m_sa_arg                      = sa_arg;
+  m_dil_arg                     = dil_arg;
+  m_resize_factor_arg		= resize_factor;
+
+  m_module                      = NULL;
+  m_function                    = NULL;
+  m_model                       = NULL;
+  m_device                      = NULL;
+
+  m_argc 			= 1;
+  m_argv[0]			= strdup("edge_detector");
+
+  // initialize
+  init_detector();
+}
+
+
 void EdgeDetector::init_detector()
 {
   // init module
@@ -243,7 +275,7 @@ int EdgeDetector::detect_edges
   int output_code = -1;
 
   // check for resize
-  if (m_resize_factor_arg == 1.)
+  if (m_resize_factor_arg != 1.)
   {
     // resize for processing
     cv::Size image_size = image.size();
